@@ -14,6 +14,7 @@ public class TicTacToe implements ActionListener{
 	JLabel textfield = new JLabel();
 	JButton[] buttons = new JButton[9];
 	boolean player1_turn;
+	boolean gdraw = true;
 
 	public TicTacToe(){
 		
@@ -53,7 +54,6 @@ public class TicTacToe implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		for(int i=0;i<9;i++) {
 			if(e.getSource()==buttons[i]) {
 				if(player1_turn) {
@@ -74,7 +74,7 @@ public class TicTacToe implements ActionListener{
 						check();
 					}
 				}
-			}			
+			}
 		}
 	}
 	
@@ -212,6 +212,17 @@ public class TicTacToe implements ActionListener{
 				) {
 			oWins(2,4,6);
 		}
+		
+		 boolean full = true;
+	        for (int i = 0; i < 9; i++) {
+	            if (buttons[i].getText().equals("")) {
+	                full = false;
+	                break;
+	            }
+	        }
+	        if (full) {
+	            draw();
+	        }
 	}
 	
 	public void xWins(int a,int b,int c) {
@@ -222,6 +233,7 @@ public class TicTacToe implements ActionListener{
 		for(int i=0;i<9;i++) {
 			buttons[i].setEnabled(false);
 		}
+		 gdraw= true;
 		textfield.setText("X wins");
 	}
 	public void oWins(int a,int b,int c) {
@@ -232,6 +244,15 @@ public class TicTacToe implements ActionListener{
 		for(int i=0;i<9;i++) {
 			buttons[i].setEnabled(false);
 		}
+		gdraw = true;
 		textfield.setText("O wins");
+	}
+	public void draw() {
+		if(gdraw == false) {
+			for(int i=0;i<9;i++) {
+				buttons[i].setEnabled(false);
+			}
+			textfield.setText("Draw");
+		}
 	}
 }
